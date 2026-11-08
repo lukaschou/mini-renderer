@@ -9,6 +9,14 @@ TGAImage::TGAImage(std::uint16_t width, std::uint16_t height)
 {
 }
 
+void TGAImage::set(int x, int y, TGAColor color)
+{
+    int index = { ((y * m_width) + x) * 3 };
+    m_framebuffer[index] = color.b;
+    m_framebuffer[index + 1] = color.g;
+    m_framebuffer[index + 2] = color.r;
+}
+
 void TGAImage::writeTgaFile()
 {
     std::ofstream outf{ "framebuffer.tga", std::ios::binary };
