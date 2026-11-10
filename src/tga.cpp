@@ -9,12 +9,22 @@ TGAImage::TGAImage(std::uint16_t width, std::uint16_t height)
 {
 }
 
-void TGAImage::set(int x, int y, TGAColor color)
+void TGAImage::set(Point p, TGAColor color)
 {
-    int index = { ((y * m_width) + x) * 3 };
+    int index = { ((p.y * m_width) + p.x) * 3 };
     m_framebuffer[index] = color.b;
     m_framebuffer[index + 1] = color.g;
     m_framebuffer[index + 2] = color.r;
+}
+
+void TGAImage::line(Point p1, Point p2, TGAColor color)
+{
+    for (double t{}; t <= 1; t += 0.02)
+    {
+        int x{ static_cast<int>(p1.x + t * (p2.x - p1.x)) };
+        int y{ static_cast<int>(p1.y + t * (p2.y - p1.y)) };
+        set(Point{x, y}, color);
+    }
 }
 
 void TGAImage::writeTgaFile()

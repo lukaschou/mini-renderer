@@ -11,12 +11,19 @@ struct TGAColor
     int b{};
 };
 
+struct Point
+{
+    int x{};
+    int y{};
+};
+
 class TGAImage
 {
 public:
     TGAImage(std::uint16_t width, std::uint16_t height);
     void writeTgaFile();
-    void set(int x, int y, TGAColor color);
+    void set(Point p, TGAColor color);
+    void line(Point p1, Point p2, TGAColor);
 
 private:
     std::uint16_t m_width{};
