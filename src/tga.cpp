@@ -1,5 +1,6 @@
 #include <array>
 #include <cstdint>
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include "tga.h"
@@ -19,11 +20,24 @@ void TGAImage::set(Point p, TGAColor color)
 
 void TGAImage::line(Point p1, Point p2, TGAColor color)
 {
-    for (double t{}; t <= 1; t += 0.02)
+    bool steep{ std::abs(p2.y - p1.y) > std::abs(p2.x - p1.x) };
+
+    if (steep)
     {
-        int x{ static_cast<int>(p1.x + t * (p2.x - p1.x)) };
+        std::swap(p2.x, p2.y);
+        std::swap(p1.x,p1.y);
+    }
+
+    if (p1.x > p2.x)
+    {
+        std::swap(p1, p2);
+    }
+
+    for (int x{p1.x}; x <= p2.x; x++)
+    {
+        double t = (x - p1.x) / static_cast<float>(p2.x - p1.x);
         int y{ static_cast<int>(p1.y + t * (p2.y - p1.y)) };
-        set(Point{x, y}, color);
+        set(steep ? Point{y,x} : Point{x, y}, color);
     }
 }
 

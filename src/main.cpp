@@ -10,7 +10,8 @@ constexpr TGAColor yellow { 255, 255, 0 };
 int main()
 {   
     Point a{ 7, 3 };
-    Point b{ 12, 37 };
+    // Point b{ 12, 37 };
+    Point b{ 62, 3 };
     Point c{ 62, 53 };
     TGAImage image{ 64, 64 };
 
